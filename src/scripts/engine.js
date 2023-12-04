@@ -7,7 +7,7 @@ const initialValues = {
   lastSquare: 0,
 };
 
-const squareNumbers = Array(10)
+const squareNumbers = Array(25)
   .fill()
   .map((_, i) => i + 1);
 
