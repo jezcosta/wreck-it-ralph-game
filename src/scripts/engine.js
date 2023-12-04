@@ -7,9 +7,7 @@ const initialValues = {
   lastSquare: 0,
 };
 
-const squareNumbers = Array(25)
-  .fill()
-  .map((_, i) => i + 1);
+const squareNumbers = Array.from(Array(25).keys());
 
 const state = {
   view: {
@@ -64,6 +62,9 @@ function getRandomNumberNoRepeat() {
     (item) => item !== state.values.lastSquare
   );
   let randomNumber = Math.floor(Math.random() * availableNumbers.length);
+  if (randomNumber < 0) {
+    randomNumber = 0;
+  }
   let randomItem = availableNumbers[randomNumber];
   state.values.lastSquare = randomItem;
 
