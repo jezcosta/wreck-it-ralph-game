@@ -4,7 +4,12 @@ const initialValues = {
   result: 0,
   currentTime: 60,
   lives: 3,
+  lastSquare: 0,
 };
+
+const squareNumbers = Array(10)
+  .fill()
+  .map((_, i) => i + 1);
 
 const state = {
   view: {
@@ -42,8 +47,7 @@ function randomSquare() {
     square.classList.remove("enemy");
   });
 
-  let randomNumber = Math.floor(Math.random() * 9);
-  let _randomSquare = state.view.squares[randomNumber];
+  let _randomSquare = state.view.squares[getRandomNumberNoRepeat()];
   _randomSquare.classList.add("enemy");
   state.values.hitPosition = _randomSquare.id;
   state.values.gameVelocity = state.values.gameVelocity - 8;
@@ -53,6 +57,17 @@ function randomSquare() {
       randomSquare();
     }, state.values.gameVelocity);
   }
+}
+
+function getRandomNumberNoRepeat() {
+  const availableNumbers = squareNumbers.filter(
+    (item) => item !== state.values.lastSquare
+  );
+  let randomNumber = Math.floor(Math.random() * availableNumbers.length);
+  let randomItem = availableNumbers[randomNumber];
+  state.values.lastSquare = randomItem;
+
+  return randomItem;
 }
 
 function addListenerHitBox() {
